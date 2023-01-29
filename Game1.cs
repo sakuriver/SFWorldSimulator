@@ -13,6 +13,9 @@ namespace SFWorldSimulator
         Texture2D characterTexture;
         private int hardWareHeight = 224;
         private int hardWareWidth = 256;
+        private int playerPositionAddValue = 3;
+        private int playerPositionSubValue = -3;
+
         private GameSceneName gameNowScene;
         private PlayerActionData playerData;
 
@@ -52,7 +55,7 @@ namespace SFWorldSimulator
                     gameNowScene = GameSceneName.Main;
                 }
             }
-
+            this.GameMainUpdate();
             // TODO: Add your update logic here
             base.Update(gameTime);
         }
@@ -73,6 +76,10 @@ namespace SFWorldSimulator
         }
 
 
+        /// <summary>
+        /// タイトル画面での表示周りを編集する関数
+        /// タイトルでの反転なども記述
+        /// </summary>
         private void GameTitleDraw()
         {
             _spriteBatch.Begin();
@@ -80,6 +87,9 @@ namespace SFWorldSimulator
             _spriteBatch.End();
         }
 
+        /// <summary>
+        /// メイン画面でのキャラクター表示周りを編集する関数
+        /// </summary>
         private void GameMainDraw() 
         {
             _spriteBatch.Begin();
@@ -87,5 +97,35 @@ namespace SFWorldSimulator
             _spriteBatch.End();
         }
 
+        /// <summary>
+        /// メイン画面内での更新処理
+        /// キーボードなどでの入力関連を保持する
+        /// </summary>
+        private void GameMainUpdate()
+        {
+            if (gameNowScene != GameSceneName.Main)
+            {
+                return;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            {
+                playerData.AddPosition(0, playerPositionSubValue);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            {
+                playerData.AddPosition(0, playerPositionAddValue);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            {
+                playerData.AddPosition(playerPositionSubValue, 0);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            {
+                playerData.AddPosition(playerPositionAddValue, 0);
+            }
+        }
+
     }
+
 }
