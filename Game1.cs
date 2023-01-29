@@ -10,9 +10,11 @@ namespace SFWorldSimulator
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         Texture2D texture;
+        Texture2D characterTexture;
         private int hardWareHeight = 224;
         private int hardWareWidth = 256;
         private GameSceneName gameNowScene;
+        private PlayerActionData playerData;
 
         public Game1()
         {
@@ -22,6 +24,7 @@ namespace SFWorldSimulator
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             gameNowScene = GameSceneName.Title;
+            playerData = new PlayerActionData(new Vector2(100.0f, 150.0f));
         }
 
         protected override void Initialize()
@@ -35,6 +38,7 @@ namespace SFWorldSimulator
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             texture = Content.Load<Texture2D>("tp_title");
+            characterTexture = Content.Load<Texture2D>("tp_player_ship");            
 
             // TODO: use this.Content to load your game content here
         }
@@ -49,11 +53,8 @@ namespace SFWorldSimulator
                 }
             }
 
-
-
-                // TODO: Add your update logic here
-
-                base.Update(gameTime);
+            // TODO: Add your update logic here
+            base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -65,6 +66,7 @@ namespace SFWorldSimulator
                     this.GameTitleDraw();
                     break;
                 case GameSceneName.Main:
+                    this.GameMainDraw();
                     break;
             }
             base.Draw(gameTime);
@@ -77,5 +79,13 @@ namespace SFWorldSimulator
             _spriteBatch.Draw(texture, new Rectangle(0, 0, hardWareWidth, hardWareHeight), Color.White);
             _spriteBatch.End();
         }
+
+        private void GameMainDraw() 
+        {
+            _spriteBatch.Begin();
+            _spriteBatch.Draw(characterTexture, playerData.GetPosition(), Color.White);
+            _spriteBatch.End();
+        }
+
     }
 }
