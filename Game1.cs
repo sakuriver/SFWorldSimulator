@@ -11,25 +11,60 @@ namespace SFWorldSimulator
 {
     public class Game1 : Game
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private GraphicsDeviceManager _graphics;
+
+        /// <summary>
+        /// ゲームで表示するフォントオブジェクト
+        /// </summary>
         private SpriteBatch _spriteBatch;
+
+        /// <summary>
+        /// タイトル画像
+        /// </summary>
         private Texture2D texture;
+
+        /// <summary>
+        /// キャラクター画像
+        /// </summary>
         private Texture2D characterTexture;
+
+        /// <summary>
+        /// 敵画像
+        /// </summary>
         private Texture2D enemyTexture;
+
         /// <summary>
         /// 各種UI関連情報として利用する部分
         /// </summary>
         private AppOutParam outParam;
 
+        /// <summary>
+        /// プレイヤーの発射したときの弾情報
+        /// </summary>
         private List<PlayerActionData> playerBulletDatas = new List<PlayerActionData>();
 
         // ゲームとしてビルドするときの画面サイズ
+
+        /// <summary>
+        /// 画面全体の高さ
+        /// </summary>
         private int hardWareHeight = 224;
+
+        /// <summary>
+        /// 画面全体の幅
+        /// </summary>
         private int hardWareWidth = 256;
+
+        /// <summary>
+        /// 座標の移動速度 
+        /// </summary>
         private int playerPositionAddValue = 3;
         private int playerPositionSubValue = -3;
 
-        
+
 
         // 敵が出現するフレーム数
         // Todo 揺らぎを出す場合は、minとmaxを指定するタイプに切り替える
@@ -45,13 +80,20 @@ namespace SFWorldSimulator
         // 敵を倒したりボーナスを計算したいときはこの変数を書き換える
         private int gameScore;
 
+        /// <summary>
+        /// ゲームの進行上のシーン情報
+        /// </summary>
         private GameSceneName gameNowScene;
+
+        /// <summary>
+        /// プレイヤーのアクション用データ
+        /// </summary>
         private PlayerActionData playerData;
 
         /// <summary>
         /// 敵情報
         /// </summary>
-        private List<PlayerActionData> enemyShipDatas = new List<PlayerActionData>(); 
+        private List<PlayerActionData> enemyShipDatas = new List<PlayerActionData>();
 
         /// <summary>
         /// ゲーム実行時のコンストラクタ
@@ -67,6 +109,10 @@ namespace SFWorldSimulator
             playerData = new PlayerActionData(new Vector2(100.0f, 150.0f));
         }
 
+
+        /// <summary>
+        /// 初期化処理
+        /// </summary>
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
@@ -90,7 +136,7 @@ namespace SFWorldSimulator
         /// <summary>
         /// ゲームのメインループで使っている時間部分
         /// </summary>
-        /// <param name="gameTime"></param>
+        /// <param name="gameTime">更新時間情報</param>
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -111,7 +157,7 @@ namespace SFWorldSimulator
         /// <summary>
         /// 描画処理
         /// </summary>
-        /// <param name="gameTime"></param>
+        /// <param name="gameTime">更新時間情報</param>
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.CornflowerBlue);
@@ -148,7 +194,7 @@ namespace SFWorldSimulator
             _spriteBatch.Begin();
             // 自キャラ関係の描画
             _spriteBatch.Draw(characterTexture, playerData.GetPosition(), Microsoft.Xna.Framework.Color.White);
-            
+
             for (int i = 0; i < playerBulletDatas.Count; i++)
             {
                 _spriteBatch.Draw(characterTexture, playerBulletDatas[i].GetPosition(), Microsoft.Xna.Framework.Color.White);
@@ -157,7 +203,7 @@ namespace SFWorldSimulator
             // 敵キャラ関係
             for (int i = 0; i < enemyShipDatas.Count; i++)
             {
-                _spriteBatch.Draw(enemyTexture,enemyShipDatas[i].GetPosition(), Microsoft.Xna.Framework.Color.White);
+                _spriteBatch.Draw(enemyTexture, enemyShipDatas[i].GetPosition(), Microsoft.Xna.Framework.Color.White);
             }
 
             // 描画専用処理が増えたらコメント解除して実装
@@ -203,11 +249,12 @@ namespace SFWorldSimulator
                 playerBulletDatas.Add(new PlayerActionData(playerData.GetPosition()));
             }
 
-            for (int i = 0; i < playerBulletDatas.Count;i++)
+            for (int i = 0; i < playerBulletDatas.Count; i++)
             {
                 playerBulletDatas[i].AddPosition(playerPositionAddValue, 0);
 
-                if (playerBulletDatas[i].GetPosition().X > 300) {
+                if (playerBulletDatas[i].GetPosition().X > 300)
+                {
                     playerBulletDatas.RemoveAt(i);
                 }
             }
@@ -224,7 +271,8 @@ namespace SFWorldSimulator
             MoveEnemy(random);
 
             // 出現処理
-            if (enemyAppearFrameCount >= EnemyAppearFrameNum) {
+            if (enemyAppearFrameCount >= EnemyAppearFrameNum)
+            {
                 int yValue = random.Next(hardWareHeight);
                 enemyShipDatas.Add(new PlayerActionData(new Vector2(200, yValue)));
                 enemyAppearFrameCount = 0;
@@ -235,6 +283,10 @@ namespace SFWorldSimulator
             // 自機の判定
         }
 
+        /// <summary>
+        /// 敵移動処理
+        /// </summary>
+        /// <param name="random">移動速度算出用オブジェクト</param>
         private void MoveEnemy(Random random)
         {
             // 敵キャラ関係
@@ -254,19 +306,19 @@ namespace SFWorldSimulator
         /// 処理行数が多そうであれば、専用関数で呼び出し
         /// </summary>
         private void MyCharacterDraw()
-        { 
+        {
         }
 
         /// <summary>
         /// Todo 敵キャラ固有の描画表示の改修希望があれば移行して修正
         /// </summary>
         private void EnemyDraw()
-        { 
+        {
         }
 
 
         /// <summary>
-        /// 
+        /// ゲーム中のUI情報を表示する
         /// </summary>
         private void UIHeaderDraw()
         {
@@ -275,6 +327,9 @@ namespace SFWorldSimulator
             _spriteBatch.DrawString(outParam.GetSpriteFont(), scoreStr, new Vector2(100, AppOutParam.OutPutUiHeaderYpos), Microsoft.Xna.Framework.Color.White);
         }
 
+        /// <summary>
+        /// ダイアログボックス領域の表示作業
+        /// </summary>
         private void UITalkDialogDraw()
         {
             // 会話情報を作りこんで設定する場合は本関数を利用 
