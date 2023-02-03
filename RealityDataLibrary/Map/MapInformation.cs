@@ -25,9 +25,9 @@ namespace RealityDataLibrary.Map
         /// </summary>
         private int releaseYear;
 
-        /// 
+        /// <summary>
         /// 地図内における領域情報一覧
-        ///
+        /// </summary>
         private List<CountyRow> countyRows;
 
         /// <summary>
@@ -113,6 +113,7 @@ namespace RealityDataLibrary.Map
         private float startLon;
         private float endLat;
         private float endLon;
+
         /// <summary>
         /// 空中都市や深海都市描画で利用する
         /// </summary>
@@ -134,27 +135,27 @@ namespace RealityDataLibrary.Map
         }
 
         /// <summary>
-        /// 
+        /// 開始緯度を取得する
         /// </summary>
-        /// <returns></returns>
+        /// <returns>開始緯度</returns>
         public float GetStartLat() {
             return startLat;
         }
 
 
         /// <summary>
-        /// 
+        /// 開始経度を取得する
         /// </summary>
-        /// <returns></returns>
+        /// <returns>開始経度</returns>
         public float GetStartLon()
         {
             return startLon;
         }
 
         /// <summary>
-        /// 
+        /// 終了緯度を取得
         /// </summary>
-        /// <returns></returns>
+        /// <returns>終了緯度</returns>
         public float GetEndLat()
         {
             return this.endLat;
@@ -162,9 +163,9 @@ namespace RealityDataLibrary.Map
 
 
         /// <summary>
-        /// 
+        /// 終了経度を取得する
         /// </summary>
-        /// <returns></returns>
+        /// <returns>終了経度</returns>
         public float GetEndLon()
         {
             return this.endLon;
@@ -173,7 +174,7 @@ namespace RealityDataLibrary.Map
         /// <summary>
         /// 標高の開始情報を定義
         /// </summary>
-        /// <returns></returns>
+        /// <returns>標高の開始位置</returns>
         public float GetStartAltitude()
         {
             return this.startAltitude;
@@ -182,7 +183,7 @@ namespace RealityDataLibrary.Map
         /// <summary>
         /// 標高の終了情報を定義
         /// </summary>
-        /// <returns></returns>
+        /// <returns>標高の終了位置</returns>
         public float GetEndAltitude() 
         { 
             return this.endAltitude;

@@ -64,6 +64,7 @@ namespace RealityDataLibrary.Finance
         /// <summary>
         /// 通貨情報を取得する
         /// </summary>
+        /// <returns>通貨情報</returns>
         public Money GetMoneyInfo()
         {
             return money;
