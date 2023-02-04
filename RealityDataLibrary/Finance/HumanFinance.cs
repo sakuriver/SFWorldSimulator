@@ -21,8 +21,16 @@ namespace RealityDataLibrary.Finance
         /// 各通貨それぞれいくら持っているかを取得できる
         /// </summary>
         /// <returns>各通貨ごとの保有一覧</returns>
-        public List<FinanceVolume> GetHumanFinances() {
+        public List<FinanceVolume> GetFinanceVolumes() {
             return financeVolumes;
+        }
+
+        /// <summary>
+        /// 新しく手に入れた通貨の情報を設定
+        /// </summary>
+        /// <param name="financeVolume">追加する通貨情報</param>
+        public void FinanceVolumeAdd(FinanceVolume financeVolume) {
+            financeVolumes.Add(financeVolume);
         }
     }
 
