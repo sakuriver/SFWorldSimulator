@@ -52,7 +52,7 @@ namespace RealityDataLibrary.HumanAuth
         /// <summary>
         /// 人物名など、実際の人が認証に使う情報を取得する
         /// </summary>
-        /// <returns></returns>
+        /// <returns>カードに設定されている認証情報</returns>
         public HumanBasicInformation GetHumanBasicInformation() { 
             return humanBasicInformation;
         }

@@ -25,10 +25,10 @@ namespace RealityDataLibrary.Map
         /// </summary>
         private int releaseYear;
 
-        /// 
+        /// <summary>
         /// 地図内における領域情報一覧
-        ///
-        private List<CountyRow> countyRows;
+        /// </summary>
+        private List<CountryRow> countryRows;
 
         /// <summary>
         /// コンストラクタ
@@ -36,11 +36,36 @@ namespace RealityDataLibrary.Map
         /// <param name="_name">地図に設定する名前</param>
         /// <param name="_releaseYear">地図が公開された年月</param>
         /// <param name="countyRows">領域一覧</param>
-        public MapInformation(string _name,int _releaseYear, List<CountyRow> countyRows) {
+        public MapInformation(string _name,int _releaseYear, List<CountryRow> _countryRows) {
             this.name = _name;
             this.releaseYear = _releaseYear;
-            this.countyRows = countyRows;
+            this.countryRows = _countryRows;
         }
+
+        /// <summary>
+        /// 地図の名称を取得
+        /// </summary>
+        /// <returns>地図の名称</returns>
+        public string GetName() {
+            return name;
+        }
+
+        /// <summary>
+        /// 地図が発売された年月
+        /// </summary>
+        /// <returns>地図発売年月日</returns>
+        public int GetReleaseYear() {
+            return releaseYear;
+        }
+
+        /// <summary>
+        /// 設定済みの領域一覧を取得する
+        /// </summary>
+        public List<CountryRow> GetCountryRows()
+        {
+            return countryRows;
+        }
+
     }
 
     /// <summary>
@@ -113,6 +138,7 @@ namespace RealityDataLibrary.Map
         private float startLon;
         private float endLat;
         private float endLon;
+
         /// <summary>
         /// 空中都市や深海都市描画で利用する
         /// </summary>
@@ -133,28 +159,38 @@ namespace RealityDataLibrary.Map
             this.endLon= _endLon;
         }
 
+
         /// <summary>
-        /// 
+        /// 地下や空中を都市情報として設定する場合に設定
+        /// <summary>
+        public void Altitude(float startAltitude, float endAltitude) {
+            this.startAltitude = startAltitude;
+            this.endAltitude = endAltitude;
+        }
+
+
+        /// <summary>
+        /// 開始緯度を取得する
         /// </summary>
-        /// <returns></returns>
+        /// <returns>開始緯度</returns>
         public float GetStartLat() {
             return startLat;
         }
 
 
         /// <summary>
-        /// 
+        /// 開始経度を取得する
         /// </summary>
-        /// <returns></returns>
+        /// <returns>開始経度</returns>
         public float GetStartLon()
         {
             return startLon;
         }
 
         /// <summary>
-        /// 
+        /// 終了緯度を取得
         /// </summary>
-        /// <returns></returns>
+        /// <returns>終了緯度</returns>
         public float GetEndLat()
         {
             return this.endLat;
@@ -162,9 +198,9 @@ namespace RealityDataLibrary.Map
 
 
         /// <summary>
-        /// 
+        /// 終了経度を取得する
         /// </summary>
-        /// <returns></returns>
+        /// <returns>終了経度</returns>
         public float GetEndLon()
         {
             return this.endLon;
@@ -173,7 +209,7 @@ namespace RealityDataLibrary.Map
         /// <summary>
         /// 標高の開始情報を定義
         /// </summary>
-        /// <returns></returns>
+        /// <returns>標高の開始位置</returns>
         public float GetStartAltitude()
         {
             return this.startAltitude;
@@ -182,7 +218,7 @@ namespace RealityDataLibrary.Map
         /// <summary>
         /// 標高の終了情報を定義
         /// </summary>
-        /// <returns></returns>
+        /// <returns>標高の終了位置</returns>
         public float GetEndAltitude() 
         { 
             return this.endAltitude;
@@ -194,7 +230,7 @@ namespace RealityDataLibrary.Map
     ///<summary>
     /// SF内で集計する国単位の情報を集めたものになる
     ///<summary>
-    public class CountyRow
+    public class CountryRow
     {
         /// <summary>
         /// 一国の中に入っている都市等の一覧を取得
@@ -205,7 +241,7 @@ namespace RealityDataLibrary.Map
         /// 国単位情報設定用のコンストラクタ
         /// </summary>
         /// <param name="_countryZones">国の中に格納されている領域一覧</param>
-        public CountyRow(List<CountryZone> _countryZones)
+        public CountryRow(List<CountryZone> _countryZones)
         {
             countryZones = _countryZones;
         }
